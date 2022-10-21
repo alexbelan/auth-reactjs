@@ -2,17 +2,8 @@ import React, { useContext, useEffect } from "react";
 import {Box, FormControl, Input, InputLabel} from '@mui/material';
 import AppContext from "../../AppContext";
 
-const LocationScreen = () => {
-    const {setNextBtn, formData, setFormData} = useContext(AppContext)
-
-    useEffect(() => {
-        setFormData(prev => ({...prev, 
-            сountry: "",
-            city: "",
-            street: "",
-            hom: ""
-        }))
-    }, [])
+const LocationScreen = ({handleChange}) => {
+    const {setNextBtn, formData} = useContext(AppContext)
 
     useEffect(() => {
         if(!!formData.сountry && !!formData.city ){
@@ -21,15 +12,6 @@ const LocationScreen = () => {
             setNextBtn(false)
         }
     }, [formData])
-
-    const handleChange = (event) => {
-        setFormData((prev) => {
-            return {
-                ...prev,
-                [event.target.name]: event.target.value,
-            }
-        })
-    }
 
     return (
     <Box
@@ -41,16 +23,14 @@ const LocationScreen = () => {
     >
         <FormControl variant="standard" required={true} sx={{marginBottom: "20px"}}>
             <InputLabel htmlFor="сountry" >Страна</InputLabel>
-            <Input 
-                id={"сountry"}
+            <Input
                 name={"сountry"}
                 value={formData.сountry}
                 onChange={handleChange} />
         </FormControl>
         <FormControl variant="standard" required={true} sx={{marginBottom: "20px"}}>
             <InputLabel htmlFor="city" >Город</InputLabel>
-            <Input 
-                id={"city"}
+            <Input
                 name={"city"}
                 value={formData.city}
                 onChange={handleChange}  />
@@ -58,15 +38,13 @@ const LocationScreen = () => {
         <FormControl variant="standard" sx={{marginBottom: "20px"}}>
             <InputLabel htmlFor="street" >Улица</InputLabel>
             <Input
-                id={"street"}
                 name={"street"}
                 value={formData.street}
                 onChange={handleChange} />
         </FormControl>
         <FormControl variant="standard" sx={{marginBottom: "20px"}}>
             <InputLabel htmlFor="hom" >Дом</InputLabel>
-            <Input 
-                id={"hom"}
+            <Input
                 name={"hom"}
                 value={formData.hom}
                 onChange={handleChange}  />

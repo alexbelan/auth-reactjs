@@ -1,19 +1,14 @@
 import React, { useContext, useEffect, useState} from "react";
 import {Box, Button, FormControl, Input, InputLabel} from '@mui/material';
 import AppContext from "../../AppContext";
+import { generateCode } from "../../generates";
 
-const NumberPhoneScreen = () => {
-    const {setNextBtn, formData, setFormData} = useContext(AppContext)
+const NumberPhoneScreen = ({handleChange}) => {
+    const {setNextBtn, formData} = useContext(AppContext)
     const [code, setCode] = useState({
         newCode: "",
         code: "", 
     })
-    
-    useEffect(() => {
-        setFormData(prev => ({...prev, 
-            number: "",
-        }))
-    }, [])
 
     useEffect(() => {
         if(!!code.newCode && !!code.code && code.newCode == code.code){
@@ -23,23 +18,8 @@ const NumberPhoneScreen = () => {
         }
     }, [formData, code])
 
-    const handleChange = (event) => {
-        if(event.target.name === "number") {
-            setFormData((prev) => {
-                return {
-                    ...prev,
-                    [event.target.name]: event.target.value,
-                }
-            })
-        }
-        if(event.target.name === "code") {
-            setCode(prev => ({...prev, code: event.target.value}))
-        }
-    }
-
-    const generateCode = () => {
-        let rand = 1000 + Math.random() * (9999 + 1 - 1000);
-        setCode(prev => ({...prev, newCode: Math.floor(rand)}))
+    const handleChangeCode = (event) => {
+        setCode(prev => ({...prev, code: event.target.value}))
     }
 
     return (
@@ -59,7 +39,7 @@ const NumberPhoneScreen = () => {
                 onChange={handleChange} />
         </FormControl>
         <Box>
-            <Button onClick={generateCode} variant={"contained"} disabled={!(!!formData.number)}>Получить код</Button>
+            <Button onClick={() => setCode(prev => ({...prev, newCode: generateCode()}))} variant={"contained"} disabled={!(!!formData.number)}>Получить код</Button>
             <p>Код: {code.newCode}</p>
         </Box>
         
@@ -69,7 +49,7 @@ const NumberPhoneScreen = () => {
                 id={"code"}
                 name={"code"}
                 value={code.code}
-                onChange={handleChange}  />
+                onChange={handleChangeCode}  />
         </FormControl>
     </Box>)
 }

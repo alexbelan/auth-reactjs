@@ -5,14 +5,26 @@ import NumberPhoneScreen from "./components/screens/NumberPhoneScreen";
 export const screens = [
     {
         title: "Логин и пароль",
-        component: <LoginScreen />
+        component: (props) => <LoginScreen {...props} />
     },
     {
         title: "Где проживаете",
-        component: <LocationScreen />
+        component: (props) => <LocationScreen {...props} />
     },
     {
         title: "Номер телефона",
-        component: <NumberPhoneScreen />
+        component: (props) => <NumberPhoneScreen {...props} />
     },
 ]
+
+export const fieldsBase = {
+    login: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+    сountry: "",
+    city: "",
+    street: "",
+    hom: "",
+    number: ""
+}

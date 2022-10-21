@@ -2,18 +2,9 @@ import React, { useContext, useEffect} from "react";
 import {Box, FormControl, Input, InputLabel} from '@mui/material';
 import AppContext from "../../AppContext";
 
-const LoginScreen = () => {
-    const {setNextBtn, formData, setFormData} = useContext(AppContext)
+const LoginScreen = ({handleChange}) => {
+    const {setNextBtn, formData} = useContext(AppContext)
     
-    useEffect(() => {
-        setFormData(prev => ({...prev, 
-            login: "",
-            email: "",
-            password: "",
-            repeatPassword: "",
-        }))
-    }, [])
-
     useEffect(() => {
         if(!!formData.login && !!formData.password && formData.password === formData.repeatPassword){
             setNextBtn(true)
@@ -21,15 +12,6 @@ const LoginScreen = () => {
             setNextBtn(false)
         }
     }, [formData])
-
-    const handleChange = (event) => {
-        setFormData((prev) => {
-            return {
-                ...prev,
-                [event.target.name]: event.target.value,
-            }
-        })
-    }
 
     return (
     <Box
