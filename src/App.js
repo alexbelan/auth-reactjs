@@ -7,7 +7,7 @@ import { fieldsBase } from './config';
 
 function App() {
   const [numScreen, setNumScreen] = useState(0)
-  const [formData, setFormData] = useState({...fieldsBase})
+  const [formData, setFormData] = useState(fieldsBase)
   const [nextBtn, setNextBtn] = useState(false)
 
   return (
